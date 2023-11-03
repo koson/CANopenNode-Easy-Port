@@ -1,0 +1,48 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.22000.0",
+            "compilerPath": "cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-msvc-x64"
+        },
+        {
+            "name": "ESP32-Win",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "c:\\Espressif\\tools\\xtensa-esp32-elf\\esp-2022r1-11.2.0\\xtensa-esp32-elf\\xtensa-esp32-elf\\include\\",
+                "c:\\Espressif\\components\\",
+                "C:/Espressif/components/driver/include",
+                "C:/Espressif/components/soc/esp32/include",
+                "C:/Espressif/components/esp_common/include",
+                "C:/Espressif/components/freertos/include",
+                "C:/Espressif/components/freertos/include/esp_additions/freertos",
+                "C:/Espressif/components/hal/include",
+                "C:/Espressif/components/esp_hw_support/include",
+                "C:/Espressif/components/soc/include",
+                "C:/Espressif/components/freertos/port/xtensa/include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.22000.0",
+            "compilerPath": "cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-msvc-x64"
+        }
+    ],
+    "version": 4
+}

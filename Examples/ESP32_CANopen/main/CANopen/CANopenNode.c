@@ -50,6 +50,7 @@
 /* Private variables ---------------------------------------------------------*/
 static CO_t *CO = NULL;         /* CANopen object */
 static CO_NMT_reset_cmd_t reset = CO_RESET_NOT;
+static uint8_t LED_red, LED_green;
 
 /* Private function prototypes -----------------------------------------------*/
 
@@ -239,8 +240,8 @@ void vCANopenNodeProcess (void)
 
         /* CANopen process */
         reset = CO_process(CO, false, timeDifference_us, NULL);
-        /* LED_red = CO_LED_RED(CO->LEDs, CO_LED_CANopen);     */
-        /* LED_green = CO_LED_GREEN(CO->LEDs, CO_LED_CANopen); */
+        LED_red = CO_LED_RED(CO->LEDs, CO_LED_CANopen);     
+        LED_green = CO_LED_GREEN(CO->LEDs, CO_LED_CANopen);
 
         /* optional sleep for short time */
     }
