@@ -22,11 +22,14 @@
 // TEST FILE
 //  . /home/muhammed/workspace/sdk/esp/esp-idf/export.sh
 /* Includes ------------------------------------------------------------------*/
+#include <stdbool.h>
+#include <unistd.h>
 #include "CANopenNode.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_timer.h"
 #include "driver/gpio.h"
+
 /* Defines -------------------------------------------------------------------*/
 
 /* Enum definitions ----------------------------------------------------------*/
@@ -38,6 +41,9 @@
 /* Private variables ---------------------------------------------------------*/
 gpio_num_t CAN_ACT_LED  = 19;
 gpio_num_t CAN_ERR_LED  = 18;
+
+
+int64_t time_old, time_current;
 
 /* Private function prototypes -----------------------------------------------*/
 static void TimerConfig (void);
@@ -56,11 +62,13 @@ void app_main(void)
     GPIOConfig();
     xCANopenNodeInit();
     TimerConfig();
-
+    time_old = time_current = esp_timer_get_time();
 
     while (1)
     {
       vCANopenNodeProcess();
+      //usleep(10);
+      //vTaskDelay(1);
     }
 
 }
@@ -86,12 +94,12 @@ static void TimerConfig (void)
     .name = "CANopenReceiveInterrupt"};   /* Optional Task Name for debugging */
 
     esp_timer_handle_t receiveTimer;
-    ESP_ERROR_CHECK(esp_timer_create(&CANTimerInterruptArgs, &receiveTimer));
+    ESP_ERROR_CHECK(esp_timer_create(&CANReceiveInterruptArgs, &receiveTimer));
     ESP_ERROR_CHECK(esp_timer_start_periodic(receiveTimer, 1000));
 
     esp_timer_handle_t periodicTimer;
-    ESP_ERROR_CHECK(esp_timer_create(&CANReceiveInterruptArgs, &periodicTimer));
-    ESP_ERROR_CHECK(esp_timer_start_periodic(periodicTimer, 100));
+    ESP_ERROR_CHECK(esp_timer_create(&CANTimerInterruptArgs, &periodicTimer));
+     ESP_ERROR_CHECK(esp_timer_start_periodic(periodicTimer, 10));
 }
 
 
@@ -105,4 +113,5 @@ static void CANReceiveInterruptHandler(void* args)
 static void CANTimerInterruptHandler(void* args)
 {
     vCANopenNodeTimerInterrupt();
+
 }

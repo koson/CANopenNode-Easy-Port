@@ -38,7 +38,7 @@
           | CO_NMT_ERR_ON_ERR_REG \
           | CO_ERR_REG_GENERIC_ERR \
           | CO_ERR_REG_COMMUNICATION
-#define FIRST_HB_TIME             500
+#define FIRST_HB_TIME             100
 #define SDO_SRV_TIMEOUT_TIME      1000
 #define SDO_CLI_TIMEOUT_TIME      500
 #define SDO_CLI_BLOCK             false
@@ -52,7 +52,7 @@
 
 extern gpio_num_t CAN_ACT_LED;
 extern gpio_num_t CAN_ERR_LED;
-
+extern int64_t time_old, time_current;
 /* Private variables ---------------------------------------------------------*/
 static CO_t *CO = NULL;         /* CANopen object */
 static CO_NMT_reset_cmd_t reset = CO_RESET_NOT;
@@ -232,18 +232,23 @@ CANopenNodeStatusTypeDef_t xCANopenNodeInit (void)
 }
 
 
+
+
 /**
  * @brief CANopen Node pediodic function
  *        This function must be call periodically
  */
 void vCANopenNodeProcess (void)
 {
+    /* loop for normal program execution ******************************************/
 
     if (reset == CO_RESET_NOT)
     {
         /* get time difference since last function call */
-        uint32_t timeDifference_us = 1000;
-
+        time_current = esp_timer_get_time();
+        uint32_t timeDifference_us = (uint32_t)(time_current - time_old) ;
+        time_old = time_current;
+        // printf("current = %lld, old = %lld, diff= %d\n", time_current, time_old, timeDifference_us);
         /* CANopen process */
         reset = CO_process(CO, false, timeDifference_us, NULL);
         LED_red = CO_LED_RED(CO->LEDs, CO_LED_CANopen); 
@@ -251,7 +256,7 @@ void vCANopenNodeProcess (void)
         gpio_set_level(CAN_ACT_LED, LED_green);
         gpio_set_level(CAN_ERR_LED, LED_red);
         /* optional sleep for short time */
-         vTaskDelay(100 / portTICK_PERIOD_MS);
+       // vTaskDelay(100 / portTICK_PERIOD_MS);
         
     }
 
@@ -262,7 +267,7 @@ void vCANopenNodeProcess (void)
 
 }
 
-
+static uint8_t s_led_state = 0;
 /**
  * @brief CANopen function in timer
  *        This function must be call in 1 ms Timer Interrupt
@@ -289,7 +294,6 @@ void vCANopenNodeTimerInterrupt (void)
 #endif
 
     }
-    
     CO_UNLOCK_OD(CO->CANmodule);
 }
 

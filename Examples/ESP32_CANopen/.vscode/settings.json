@@ -14,7 +14,8 @@
         "timer_group_reg.h": "c",
         "semphr.h": "c",
         "task.h": "c",
-        "canopennode.h": "c"
+        "canopennode.h": "c",
+        "co_config.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

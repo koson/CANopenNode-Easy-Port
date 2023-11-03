@@ -340,6 +340,7 @@ void CO_CANinterrupt(CO_CANmodule_t *CANmodule){
         if (ret == CAN_OPEN_NODE_OK)
         {
             rcvMsgIdent = rcvMsg->ident;
+            LOG_INFO("rcvMsgIdent:%x\n", rcvMsgIdent);
             if(CANmodule->useCANrxFilters){
                 /* CAN module filters are used. Message with known 11-bit identifier has */
                 /* been received */
