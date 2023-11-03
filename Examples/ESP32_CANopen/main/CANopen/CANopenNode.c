@@ -27,6 +27,9 @@
 #include "CO_storageBlank.h"
 #include "CANopenHardware.h"
 #include "log.h"
+#include "driver/gpio.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
 /* Defines -------------------------------------------------------------------*/
 /* default values for CO_CANopenInit() */
@@ -46,6 +49,9 @@
 /* Structure definitions -----------------------------------------------------*/
 
 /* External variables --------------------------------------------------------*/
+
+extern gpio_num_t CAN_ACT_LED;
+extern gpio_num_t CAN_ERR_LED;
 
 /* Private variables ---------------------------------------------------------*/
 static CO_t *CO = NULL;         /* CANopen object */
@@ -240,10 +246,13 @@ void vCANopenNodeProcess (void)
 
         /* CANopen process */
         reset = CO_process(CO, false, timeDifference_us, NULL);
-        LED_red = CO_LED_RED(CO->LEDs, CO_LED_CANopen);     
+        LED_red = CO_LED_RED(CO->LEDs, CO_LED_CANopen); 
         LED_green = CO_LED_GREEN(CO->LEDs, CO_LED_CANopen);
-
+        gpio_set_level(CAN_ACT_LED, LED_green);
+        gpio_set_level(CAN_ERR_LED, LED_red);
         /* optional sleep for short time */
+         vTaskDelay(100 / portTICK_PERIOD_MS);
+        
     }
 
     else

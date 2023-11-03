@@ -29,6 +29,7 @@
 #include "301/CO_driver.h"
 #include "CANopenHardware.h"
 #include "CANopenNode.h"
+#include "log.h"
 
 /******************************************************************************/
 void CO_CANsetConfigurationMode(void *CANptr){
@@ -339,7 +340,6 @@ void CO_CANinterrupt(CO_CANmodule_t *CANmodule){
         if (ret == CAN_OPEN_NODE_OK)
         {
             rcvMsgIdent = rcvMsg->ident;
-        
             if(CANmodule->useCANrxFilters){
                 /* CAN module filters are used. Message with known 11-bit identifier has */
                 /* been received */

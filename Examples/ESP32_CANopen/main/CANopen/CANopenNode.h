@@ -38,8 +38,8 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 
 /* Defines -------------------------------------------------------------------*/
-#define CAN_OPEN_NODE_ID                              1
-#define CAN_OPEN_NODE_BAUDRATE                        1000
+#define CAN_OPEN_NODE_ID                              9
+#define CAN_OPEN_NODE_BAUDRATE                        500
 
 /* Enum definitions ----------------------------------------------------------*/
 /**

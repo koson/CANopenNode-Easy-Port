@@ -26,7 +26,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_timer.h"
-
+#include "driver/gpio.h"
 /* Defines -------------------------------------------------------------------*/
 
 /* Enum definitions ----------------------------------------------------------*/
@@ -36,11 +36,14 @@
 /* External variables --------------------------------------------------------*/
 
 /* Private variables ---------------------------------------------------------*/
+gpio_num_t CAN_ACT_LED  = 19;
+gpio_num_t CAN_ERR_LED  = 18;
 
 /* Private function prototypes -----------------------------------------------*/
 static void TimerConfig (void);
 static void CANReceiveInterruptHandler(void* args);
 static void CANTimerInterruptHandler(void* args);
+static void GPIOConfig(void);
 
 
 /* Functions ----------------------------------------------------------------*/
@@ -50,7 +53,7 @@ static void CANTimerInterruptHandler(void* args);
   */
 void app_main(void)
 {
-    
+    GPIOConfig();
     xCANopenNodeInit();
     TimerConfig();
 
@@ -62,6 +65,13 @@ void app_main(void)
 
 }
 
+static void GPIOConfig(void)
+{
+  gpio_set_direction(CAN_ACT_LED, GPIO_MODE_OUTPUT);
+  gpio_set_direction(CAN_ERR_LED, GPIO_MODE_OUTPUT);
+  gpio_set_level(CAN_ACT_LED, 0);
+  gpio_set_level(CAN_ERR_LED, 0);
+}
 
 static void TimerConfig (void)
 {
@@ -81,7 +91,7 @@ static void TimerConfig (void)
 
     esp_timer_handle_t periodicTimer;
     ESP_ERROR_CHECK(esp_timer_create(&CANReceiveInterruptArgs, &periodicTimer));
-    ESP_ERROR_CHECK(esp_timer_start_periodic(periodicTimer, 1000));
+    ESP_ERROR_CHECK(esp_timer_start_periodic(periodicTimer, 100));
 }
 
 

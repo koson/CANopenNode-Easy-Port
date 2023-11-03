@@ -7,7 +7,14 @@
         "gpio.h": "c",
         "freertos.h": "c",
         "freertosconfig.h": "c",
-        "portable.h": "c"
+        "portable.h": "c",
+        "canopenhardware.h": "c",
+        "co_driver_target.h": "c",
+        "param.h": "c",
+        "timer_group_reg.h": "c",
+        "semphr.h": "c",
+        "task.h": "c",
+        "canopennode.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
