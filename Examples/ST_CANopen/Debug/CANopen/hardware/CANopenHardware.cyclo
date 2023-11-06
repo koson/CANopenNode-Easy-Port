@@ -1,5 +1,0 @@
-CANopenHardware.c:67:32:xCANopenHardwareInit	3
-CANopenHardware.c:114:6:vLogTransmit	1
-CANopenHardware.c:129:6:vResetModule	1
-CANopenHardware.c:145:28:xCANTransmitMessage	3
-CANopenHardware.c:198:28:xCANReceiveMessage	3
