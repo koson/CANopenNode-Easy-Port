@@ -109,7 +109,7 @@ CANopenNodeStatusTypeDef_t xCANopenNodeInit (void)
     }
     else 
     {
-        LOG_INFO("Allocated %u bytes for CANopen objects\n", heapMemoryUsed);
+        LOG_INFO("Allocated %lu bytes for CANopen objects\n", heapMemoryUsed);
     }
 
 
@@ -178,7 +178,7 @@ CANopenNodeStatusTypeDef_t xCANopenNodeInit (void)
 
         if(err != CO_ERROR_NO && err != CO_ERROR_NODE_ID_UNCONFIGURED_LSS) {
             if (err == CO_ERROR_OD_PARAMETERS) {
-                LOG_INFO("Error: Object Dictionary entry 0x%X\n", errInfo);
+                LOG_INFO("Error: Object Dictionary entry 0x%lX\n", errInfo);
             }
             else {
                 LOG_INFO("Error: CANopen initialization failed: %d\n", err);
@@ -189,7 +189,7 @@ CANopenNodeStatusTypeDef_t xCANopenNodeInit (void)
         err = CO_CANopenInitPDO(CO, CO->em, OD, activeNodeId, &errInfo);
         if(err != CO_ERROR_NO) {
             if (err == CO_ERROR_OD_PARAMETERS) {
-                LOG_INFO("Error: Object Dictionary entry 0x%X\n", errInfo);
+                LOG_INFO("Error: Object Dictionary entry 0x%lX\n", errInfo);
             }
             else {
                 LOG_INFO("Error: PDO initialization failed: %d\n", err);

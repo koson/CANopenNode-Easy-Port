@@ -7,19 +7,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         0000c5ac  080001a0  080001a0  000101a0  2**4
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000af0  0800c74c  0800c74c  0001c74c  2**2
+  2 .rodata       00000af4  0800c74c  0800c74c  0001c74c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  0800d23c  0800d23c  00020a50  2**0
+  3 .ARM.extab    00000000  0800d240  0800d240  00020a50  2**0
                   CONTENTS
-  4 .ARM          00000000  0800d23c  0800d23c  00020a50  2**0
+  4 .ARM          00000000  0800d240  0800d240  00020a50  2**0
                   CONTENTS
-  5 .preinit_array 00000000  0800d23c  0800d23c  00020a50  2**0
+  5 .preinit_array 00000000  0800d240  0800d240  00020a50  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  0800d23c  0800d23c  0001d23c  2**2
+  6 .init_array   00000004  0800d240  0800d240  0001d240  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  0800d240  0800d240  0001d240  2**2
+  7 .fini_array   00000004  0800d244  0800d244  0001d244  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         00000a50  20000000  0800d244  00020000  2**3
+  8 .data         00000a50  20000000  0800d248  00020000  2**3
                   CONTENTS, ALLOC, LOAD, DATA
   9 .ccmram       00000000  10000000  10000000  00020a50  2**0
                   CONTENTS
@@ -220,7 +220,7 @@ CANopenNodeStatusTypeDef_t xCANopenNodeInit (void)
     }
     else 
     {
-        LOG_INFO("Allocated %u bytes for CANopen objects\n", heapMemoryUsed);
+        LOG_INFO("Allocated %lu bytes for CANopen objects\n", heapMemoryUsed);
  80002e0:	69fb      	ldr	r3, [r7, #28]
  80002e2:	4619      	mov	r1, r3
  80002e4:	486e      	ldr	r0, [pc, #440]	; (80004a0 <xCANopenNodeInit+0x210>)
@@ -380,7 +380,7 @@ CANopenNodeStatusTypeDef_t xCANopenNodeInit (void)
  80003ec:	f997 3023 	ldrsb.w	r3, [r7, #35]	; 0x23
  80003f0:	f113 0f0c 	cmn.w	r3, #12
  80003f4:	d105      	bne.n	8000402 <xCANopenNodeInit+0x172>
-                LOG_INFO("Error: Object Dictionary entry 0x%X\n", errInfo);
+                LOG_INFO("Error: Object Dictionary entry 0x%lX\n", errInfo);
  80003f6:	683b      	ldr	r3, [r7, #0]
  80003f8:	4619      	mov	r1, r3
  80003fa:	4830      	ldr	r0, [pc, #192]	; (80004bc <xCANopenNodeInit+0x22c>)
@@ -422,7 +422,7 @@ CANopenNodeStatusTypeDef_t xCANopenNodeInit (void)
  800043c:	f997 3023 	ldrsb.w	r3, [r7, #35]	; 0x23
  8000440:	f113 0f0c 	cmn.w	r3, #12
  8000444:	d105      	bne.n	8000452 <xCANopenNodeInit+0x1c2>
-                LOG_INFO("Error: Object Dictionary entry 0x%X\n", errInfo);
+                LOG_INFO("Error: Object Dictionary entry 0x%lX\n", errInfo);
  8000446:	683b      	ldr	r3, [r7, #0]
  8000448:	4619      	mov	r1, r3
  800044a:	481c      	ldr	r0, [pc, #112]	; (80004bc <xCANopenNodeInit+0x22c>)
@@ -488,16 +488,16 @@ CANopenNodeStatusTypeDef_t xCANopenNodeInit (void)
  800049c:	0800c770 	.word	0x0800c770
  80004a0:	0800c790 	.word	0x0800c790
  80004a4:	20000a70 	.word	0x20000a70
- 80004a8:	0800c7b8 	.word	0x0800c7b8
- 80004ac:	0800c7dc 	.word	0x0800c7dc
+ 80004a8:	0800c7bc 	.word	0x0800c7bc
+ 80004ac:	0800c7e0 	.word	0x0800c7e0
  80004b0:	20000000 	.word	0x20000000
- 80004b4:	0800c804 	.word	0x0800c804
+ 80004b4:	0800c808 	.word	0x0800c808
  80004b8:	200009dc 	.word	0x200009dc
- 80004bc:	0800c830 	.word	0x0800c830
- 80004c0:	0800c858 	.word	0x0800c858
- 80004c4:	0800c884 	.word	0x0800c884
- 80004c8:	0800c8ac 	.word	0x0800c8ac
- 80004cc:	0800c8d4 	.word	0x0800c8d4
+ 80004bc:	0800c834 	.word	0x0800c834
+ 80004c0:	0800c85c 	.word	0x0800c85c
+ 80004c4:	0800c888 	.word	0x0800c888
+ 80004c8:	0800c8b0 	.word	0x0800c8b0
+ 80004cc:	0800c8d8 	.word	0x0800c8d8
 
 080004d0 <vCANopenNodeProcess>:
 /**
@@ -639,6 +639,7 @@ void vCANopenNodeReceiveInterrupt (void)
  8000578:	685b      	ldr	r3, [r3, #4]
  800057a:	4618      	mov	r0, r3
  800057c:	f000 fa22 	bl	80009c4 <CO_CANinterrupt>
+}
  8000580:	bf00      	nop
  8000582:	bd80      	pop	{r7, pc}
  8000584:	20000a6c 	.word	0x20000a6c
@@ -5907,7 +5908,7 @@ uint32_t OD_getSDOabCode(ODR_t returnCode) {
  8002358:	f85d 7b04 	ldr.w	r7, [sp], #4
  800235c:	4770      	bx	lr
  800235e:	bf00      	nop
- 8002360:	0800d0f0 	.word	0x0800d0f0
+ 8002360:	0800d0f4 	.word	0x0800d0f4
 
 08002364 <OD_get_value>:
 
@@ -16598,7 +16599,7 @@ bool_t CO_LSSslave_process(CO_LSSslave_t *LSSslave) {
  80066c2:	46bd      	mov	sp, r7
  80066c4:	bd80      	pop	{r7, pc}
  80066c6:	bf00      	nop
- 80066c8:	0800d158 	.word	0x0800d158
+ 80066c8:	0800d15c 	.word	0x0800d15c
 
 080066cc <CO_isError>:
 static inline bool_t CO_isError(CO_EM_t *em, const uint8_t errorBit) {
@@ -19047,7 +19048,7 @@ int main(void)
  8007528:	e7fc      	b.n	8007524 <main+0x34>
  800752a:	bf00      	nop
  800752c:	20000aa4 	.word	0x20000aa4
- 8007530:	0800c8ec 	.word	0x0800c8ec
+ 8007530:	0800c8f0 	.word	0x0800c8f0
  8007534:	20000af0 	.word	0x20000af0
 
 08007538 <SystemClock_Config>:
@@ -20153,7 +20154,7 @@ LoopForever:
   ldr r1, =_edata
  8007a34:	20000a50 	.word	0x20000a50
   ldr r2, =_sidata
- 8007a38:	0800d244 	.word	0x0800d244
+ 8007a38:	0800d248 	.word	0x0800d248
   ldr r2, =_sbss
  8007a3c:	20000a50 	.word	0x20000a50
   ldr r4, =_ebss
@@ -26052,7 +26053,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
  800a0e8:	bd80      	pop	{r7, pc}
  800a0ea:	bf00      	nop
  800a0ec:	40021000 	.word	0x40021000
- 800a0f0:	0800d16c 	.word	0x0800d16c
+ 800a0f0:	0800d170 	.word	0x0800d170
  800a0f4:	200009e0 	.word	0x200009e0
  800a0f8:	200009e4 	.word	0x200009e4
 
@@ -26198,8 +26199,8 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
  800a1be:	4770      	bx	lr
  800a1c0:	40021000 	.word	0x40021000
  800a1c4:	007a1200 	.word	0x007a1200
- 800a1c8:	0800d184 	.word	0x0800d184
- 800a1cc:	0800d194 	.word	0x0800d194
+ 800a1c8:	0800d188 	.word	0x0800d188
+ 800a1cc:	0800d198 	.word	0x0800d198
 
 0800a1d0 <HAL_RCC_GetHCLKFreq>:
   * @note   The SystemCoreClock CMSIS variable is used to store System Clock Frequency 
@@ -26258,7 +26259,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  800a220:	46bd      	mov	sp, r7
  800a222:	bd80      	pop	{r7, pc}
  800a224:	40021000 	.word	0x40021000
- 800a228:	0800d17c 	.word	0x0800d17c
+ 800a228:	0800d180 	.word	0x0800d180
 
 0800a22c <HAL_RCC_GetPCLK2Freq>:
   * @note   Each time PCLK2 changes, this function must be called to update the
@@ -26297,7 +26298,7 @@ uint32_t HAL_RCC_GetPCLK2Freq(void)
  800a264:	46bd      	mov	sp, r7
  800a266:	bd80      	pop	{r7, pc}
  800a268:	40021000 	.word	0x40021000
- 800a26c:	0800d17c 	.word	0x0800d17c
+ 800a26c:	0800d180 	.word	0x0800d180
 
 0800a270 <HAL_RCCEx_PeriphCLKConfig>:
   *         When the TIMx clock source is PLL clock, so the TIMx clock is PLL clock x 2.
@@ -29781,10 +29782,10 @@ __STATIC_FORCEINLINE uint32_t __STREXW(uint32_t value, volatile uint32_t *addr)
  800b67a:	4798      	blx	r3
  800b67c:	3601      	adds	r6, #1
  800b67e:	e7f2      	b.n	800b666 <__libc_init_array+0x1e>
- 800b680:	0800d23c 	.word	0x0800d23c
- 800b684:	0800d23c 	.word	0x0800d23c
- 800b688:	0800d23c 	.word	0x0800d23c
- 800b68c:	0800d240 	.word	0x0800d240
+ 800b680:	0800d240 	.word	0x0800d240
+ 800b684:	0800d240 	.word	0x0800d240
+ 800b688:	0800d240 	.word	0x0800d240
+ 800b68c:	0800d244 	.word	0x0800d244
 
 0800b690 <free>:
  800b690:	4b02      	ldr	r3, [pc, #8]	; (800b69c <free+0xc>)
@@ -30182,9 +30183,9 @@ __STATIC_FORCEINLINE uint32_t __STREXW(uint32_t value, volatile uint32_t *addr)
  800b9e6:	6022      	str	r2, [r4, #0]
  800b9e8:	701d      	strb	r5, [r3, #0]
  800b9ea:	e7db      	b.n	800b9a4 <_puts_r+0x88>
- 800b9ec:	0800d1c8 	.word	0x0800d1c8
- 800b9f0:	0800d1e8 	.word	0x0800d1e8
- 800b9f4:	0800d1a8 	.word	0x0800d1a8
+ 800b9ec:	0800d1cc 	.word	0x0800d1cc
+ 800b9f0:	0800d1ec 	.word	0x0800d1ec
+ 800b9f4:	0800d1ac 	.word	0x0800d1ac
 
 0800b9f8 <puts>:
  800b9f8:	4b02      	ldr	r3, [pc, #8]	; (800ba04 <puts+0xc>)
@@ -30282,9 +30283,9 @@ __STATIC_FORCEINLINE uint32_t __STREXW(uint32_t value, volatile uint32_t *addr)
  800bab8:	f04f 37ff 	mov.w	r7, #4294967295
  800babc:	e7ea      	b.n	800ba94 <__swbuf_r+0x6c>
  800babe:	bf00      	nop
- 800bac0:	0800d1c8 	.word	0x0800d1c8
- 800bac4:	0800d1e8 	.word	0x0800d1e8
- 800bac8:	0800d1a8 	.word	0x0800d1a8
+ 800bac0:	0800d1cc 	.word	0x0800d1cc
+ 800bac4:	0800d1ec 	.word	0x0800d1ec
+ 800bac8:	0800d1ac 	.word	0x0800d1ac
 
 0800bacc <__swsetup_r>:
  800bacc:	4b32      	ldr	r3, [pc, #200]	; (800bb98 <__swsetup_r+0xcc>)
@@ -30376,9 +30377,9 @@ __STATIC_FORCEINLINE uint32_t __STREXW(uint32_t value, volatile uint32_t *addr)
  800bb94:	e7f7      	b.n	800bb86 <__swsetup_r+0xba>
  800bb96:	bf00      	nop
  800bb98:	200009ec 	.word	0x200009ec
- 800bb9c:	0800d1c8 	.word	0x0800d1c8
- 800bba0:	0800d1e8 	.word	0x0800d1e8
- 800bba4:	0800d1a8 	.word	0x0800d1a8
+ 800bb9c:	0800d1cc 	.word	0x0800d1cc
+ 800bba0:	0800d1ec 	.word	0x0800d1ec
+ 800bba4:	0800d1ac 	.word	0x0800d1ac
 
 0800bba8 <__sflush_r>:
  800bba8:	898a      	ldrh	r2, [r1, #12]
@@ -30554,9 +30555,9 @@ __STATIC_FORCEINLINE uint32_t __STREXW(uint32_t value, volatile uint32_t *addr)
  800bd1a:	bf08      	it	eq
  800bd1c:	68ec      	ldreq	r4, [r5, #12]
  800bd1e:	e7da      	b.n	800bcd6 <_fflush_r+0x22>
- 800bd20:	0800d1c8 	.word	0x0800d1c8
- 800bd24:	0800d1e8 	.word	0x0800d1e8
- 800bd28:	0800d1a8 	.word	0x0800d1a8
+ 800bd20:	0800d1cc 	.word	0x0800d1cc
+ 800bd24:	0800d1ec 	.word	0x0800d1ec
+ 800bd28:	0800d1ac 	.word	0x0800d1ac
 
 0800bd2c <std>:
  800bd2c:	2300      	movs	r3, #0
@@ -30681,7 +30682,7 @@ __STATIC_FORCEINLINE uint32_t __STREXW(uint32_t value, volatile uint32_t *addr)
  800be3e:	61a3      	str	r3, [r4, #24]
  800be40:	e7d2      	b.n	800bde8 <__sinit+0xc>
  800be42:	bf00      	nop
- 800be44:	0800d1a4 	.word	0x0800d1a4
+ 800be44:	0800d1a8 	.word	0x0800d1a8
  800be48:	0800bd75 	.word	0x0800bd75
 
 0800be4c <__sfp>:
@@ -30736,7 +30737,7 @@ __STATIC_FORCEINLINE uint32_t __STREXW(uint32_t value, volatile uint32_t *addr)
  800beca:	603b      	str	r3, [r7, #0]
  800becc:	e7ee      	b.n	800beac <__sfp+0x60>
  800bece:	bf00      	nop
- 800bed0:	0800d1a4 	.word	0x0800d1a4
+ 800bed0:	0800d1a8 	.word	0x0800d1a8
  800bed4:	ffff0001 	.word	0xffff0001
 
 0800bed8 <_fwalk_reent>:
@@ -31156,14 +31157,14 @@ __STATIC_FORCEINLINE uint32_t __STREXW(uint32_t value, volatile uint32_t *addr)
  800c28c:	f000 f880 	bl	800c390 <_printf_i>
  800c290:	e7e4      	b.n	800c25c <_vfiprintf_r+0x208>
  800c292:	bf00      	nop
- 800c294:	0800d1c8 	.word	0x0800d1c8
- 800c298:	0800d1e8 	.word	0x0800d1e8
- 800c29c:	0800d1a8 	.word	0x0800d1a8
- 800c2a0:	0800d208 	.word	0x0800d208
- 800c2a4:	0800d212 	.word	0x0800d212
+ 800c294:	0800d1cc 	.word	0x0800d1cc
+ 800c298:	0800d1ec 	.word	0x0800d1ec
+ 800c29c:	0800d1ac 	.word	0x0800d1ac
+ 800c2a0:	0800d20c 	.word	0x0800d20c
+ 800c2a4:	0800d216 	.word	0x0800d216
  800c2a8:	00000000 	.word	0x00000000
  800c2ac:	0800c02f 	.word	0x0800c02f
- 800c2b0:	0800d20e 	.word	0x0800d20e
+ 800c2b0:	0800d212 	.word	0x0800d212
 
 0800c2b4 <_printf_common>:
  800c2b4:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
@@ -31499,8 +31500,8 @@ __STATIC_FORCEINLINE uint32_t __STREXW(uint32_t value, volatile uint32_t *addr)
  800c5cc:	f104 0619 	add.w	r6, r4, #25
  800c5d0:	e7f5      	b.n	800c5be <_printf_i+0x22e>
  800c5d2:	bf00      	nop
- 800c5d4:	0800d219 	.word	0x0800d219
- 800c5d8:	0800d22a 	.word	0x0800d22a
+ 800c5d4:	0800d21d 	.word	0x0800d21d
+ 800c5d8:	0800d22e 	.word	0x0800d22e
 
 0800c5dc <__sread>:
  800c5dc:	b510      	push	{r4, lr}
