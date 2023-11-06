@@ -1,0 +1,4 @@
+CANopenNode.c:62:28:xCANopenNodeInit	12
+CANopenNode.c:232:6:vCANopenNodeProcess	2
+CANopenNode.c:260:6:vCANopenNodeTimerInterrupt	3
+CANopenNode.c:289:6:vCANopenNodeReceiveInterrupt	1
