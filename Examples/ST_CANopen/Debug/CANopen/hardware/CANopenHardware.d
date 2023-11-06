@@ -1,7 +1,7 @@
 CANopen/hardware/CANopenHardware.o: ../CANopen/hardware/CANopenHardware.c \
  ../CANopen/hardware/CANopenHardware.h \
- D:/Workspace/Development/my/ST_CanBus/CANopen/driver/CO_driver_target.h \
- D:/Workspace/Development/my/ST_CanBus/CANopen/CANopenNode.h \
+ D:/GithubRepos/__ENOSE_TOYOTA/ESP32/CANopenNode-Easy-Port/Examples/ST_CANopen/CANopen/driver/CO_driver_target.h \
+ D:/GithubRepos/__ENOSE_TOYOTA/ESP32/CANopenNode-Easy-Port/Examples/ST_CANopen/CANopen/CANopenNode.h \
  ../Core/Inc/can.h ../Core/Inc/main.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h \
  ../Core/Inc/stm32f3xx_hal_conf.h \
@@ -36,8 +36,8 @@ CANopen/hardware/CANopenHardware.o: ../CANopen/hardware/CANopenHardware.c \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_uart_ex.h \
  ../Core/Inc/usart.h
 ../CANopen/hardware/CANopenHardware.h:
-D:/Workspace/Development/my/ST_CanBus/CANopen/driver/CO_driver_target.h:
-D:/Workspace/Development/my/ST_CanBus/CANopen/CANopenNode.h:
+D:/GithubRepos/__ENOSE_TOYOTA/ESP32/CANopenNode-Easy-Port/Examples/ST_CANopen/CANopen/driver/CO_driver_target.h:
+D:/GithubRepos/__ENOSE_TOYOTA/ESP32/CANopenNode-Easy-Port/Examples/ST_CANopen/CANopen/CANopenNode.h:
 ../Core/Inc/can.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:

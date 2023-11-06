@@ -54,14 +54,14 @@ BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ART
 EXECUTABLES += \
 CanBus.elf \
 
+MAP_FILES += \
+CanBus.map \
+
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
 CanBus.list \
-
-OBJCOPY_BIN += \
-CanBus.bin \
 
 
 # All Target
@@ -71,8 +71,8 @@ all: main-build
 main-build: CanBus.elf secondary-outputs
 
 # Tool invocations
-CanBus.elf: $(OBJS) $(USER_OBJS) D:\Workspace\Development\my\ST_CanBus\STM32F303RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "CanBus.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\Workspace\Development\my\ST_CanBus\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CanBus.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+CanBus.elf CanBus.map: $(OBJS) $(USER_OBJS) D:\GithubRepos\__ENOSE_TOYOTA\ESP32\CANopenNode-Easy-Port\Examples\ST_CANopen\STM32F303RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "CanBus.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\GithubRepos\__ENOSE_TOYOTA\ESP32\CANopenNode-Easy-Port\Examples\ST_CANopen\STM32F303RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="CanBus.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -86,17 +86,12 @@ CanBus.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-CanBus.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "CanBus.bin"
-	@echo 'Finished building: $@'
-	@echo ' '
-
 # Other Targets
 clean:
-	-$(RM) CanBus.bin CanBus.elf CanBus.list default.size.stdout
+	-$(RM) CanBus.elf CanBus.list CanBus.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
